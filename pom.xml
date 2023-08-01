@@ -24,4 +24,6 @@
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
+    <name>Sistema_estética</name>
+    <description>Código funcional, porém esse banco de dados também sumiu.</description>
 </project>

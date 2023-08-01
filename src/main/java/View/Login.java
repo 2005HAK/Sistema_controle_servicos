@@ -24,6 +24,9 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
+        setBackground(new java.awt.Color(51, 51, 51));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(new java.awt.Color(51, 51, 51));
         setResizable(false);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -110,73 +113,55 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pswSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswSenhaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_pswSenhaActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-
         this.entrar();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-
-        Cadastrar cadastrar = new Cadastrar();
-        cadastrar.setVisible(true);
+        new Cadastrar().setVisible(true);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
-
     }//GEN-LAST:event_formKeyPressed
 
     private void pswSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pswSenhaKeyPressed
-
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) 
-        {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.entrar();
         }
     }//GEN-LAST:event_pswSenhaKeyPressed
 
     private void txtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyPressed
-        
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) 
-        {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             this.entrar();
         }
     }//GEN-LAST:event_txtUsuarioKeyPressed
 
-    private void entrar() 
-    {
+    private void entrar() {
         UsuarioControle usuariocontrole = new UsuarioControle();
         Usuario usuariologin = new Usuario(txtUsuario.getText(), null, null, String.valueOf(pswSenha.getPassword()));
         int verifica = 0;
 
-        for (Usuario usuario : usuariocontrole.entrar()) 
-        {
-            if (usuario.getNome().equals(usuariologin.getNome()))
-            {
-                if (usuario.getSenha().equals(usuariologin.getSenha())) 
-                {
+        for (Usuario usuario : usuariocontrole.entrar()) {
+            if (usuario.getNome().equals(usuariologin.getNome())) {
+                if (usuario.getSenha().equals(usuariologin.getSenha())) {
+                    //Principal.main(null); //teste
                     Principal principal = new Principal();
                     principal.setExtendedState(MAXIMIZED_BOTH);
                     principal.listarProdutos();
                     principal.listarServiços();
                     principal.setVisible(true);
                     this.dispose();
-                } 
-                else 
-                {
+                } else {
                     lblErro.setText("Senha incorreta");
                     pswSenha.setText(null);
                     break;
                 }
             }
-
             verifica++;
         }
-
-        if (verifica == usuariocontrole.entrar().size()) 
-        {
+        if (verifica == usuariocontrole.entrar().size()) {
             lblErro.setText("Sem correspondência");
             pswSenha.setText(null);
             txtUsuario.setText(null);
@@ -184,26 +169,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Login().setVisible(true);
         });

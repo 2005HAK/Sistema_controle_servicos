@@ -10,16 +10,11 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-//@author hebert
-public class Principal extends javax.swing.JFrame 
-{
+public class Principal extends javax.swing.JFrame {
 
-    public Principal() 
-    {
+    Principal() {
         initComponents();
     }
-
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -553,38 +548,31 @@ public class Principal extends javax.swing.JFrame
     ArrayList<ProdutoServiço> produtosserviço = new ArrayList();
 
     private void txtCodServiçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodServiçoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCodServiçoActionPerformed
 
     private void btnCancelarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarProdutoActionPerformed
-
         this.limparProdutos();
     }//GEN-LAST:event_btnCancelarProdutoActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void itmSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSairActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_itmSairActionPerformed
 
     private void itmCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCadastrarUsuarioActionPerformed
-
-        Cadastrar cadastrar = new Cadastrar();
-        cadastrar.setVisible(true);
+        new Cadastrar().setVisible(true);
     }//GEN-LAST:event_itmCadastrarUsuarioActionPerformed
 
     private void btnCancelarServiçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarServiçoActionPerformed
-
         this.limparServiço();
     }//GEN-LAST:event_btnCancelarServiçoActionPerformed
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
-
-        if (tblProdutos.getSelectedRow() != -1) 
-        {
+        if (tblProdutos.getSelectedRow() != -1) {
             txtCodProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
             txtNomeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
             txtValorProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
@@ -594,91 +582,56 @@ public class Principal extends javax.swing.JFrame
     }//GEN-LAST:event_tblProdutosMouseClicked
 
     private void btnSalvarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarProdutoActionPerformed
-
-        int ok;
-
-        try
-        {
-            ProdutoControle produtocontrole = new ProdutoControle();
-
-            ok = produtocontrole.cadastrar(txtNomeProduto.getText(), txtQtdeProduto.getText(), txtValorProduto.getText(), txtaDescriçaoProduto.getText(), txtCodProduto.getText());
-
-            switch (ok) 
-            {
-                case 1:
+        try {
+            switch (new ProdutoControle().cadastrar(txtNomeProduto.getText(), txtQtdeProduto.getText(),
+                    txtValorProduto.getText(), txtaDescriçaoProduto.getText(), txtCodProduto.getText())) {
+                case 1 ->
                     lblErroProduto.setText("Todos os campos devem ser preenchidos!");
-                    break;
 
-                case 2:
+                case 2 -> {
                     this.limparProdutos();
                     this.listarProdutos();
                     lblErroProduto.setText(null);
-                    break;
+                }
 
-                case 3:
+                case 3 ->
                     lblErroProduto.setText("Produto ja existente!");
-                    break;
             }
 
-        }
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
     }//GEN-LAST:event_btnSalvarProdutoActionPerformed
 
     private void btnAtualizarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarProdutoActionPerformed
-
-        boolean ok;
-
-        if (tblProdutos.getSelectedRow() != -1) 
-        {
-            ProdutoControle produtocontrole = new ProdutoControle();
-
-            ok = produtocontrole.atualizarProduto(txtCodProduto.getText(), txtNomeProduto.getText(), txtQtdeProduto.getText(), txtValorProduto.getText(), txtaDescriçaoProduto.getText());
-
-            if (ok == true) 
-            {
+        if (tblProdutos.getSelectedRow() != -1) {
+            if (new ProdutoControle().atualizarProduto(txtCodProduto.getText(), txtNomeProduto.getText(),
+                    txtQtdeProduto.getText(), txtValorProduto.getText(), txtaDescriçaoProduto.getText()) == true) {
                 JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.listarProdutos();
                 this.limparProdutos();
-            } 
-            else 
-            {
+            } else {
                 lblErroProduto.setText("Todos os campos devem ser preenchidos!");
             }
-        } 
-        else 
-        {
+        } else {
             lblErroProduto.setText("Nenhuma linha selecionada");
 
         }
     }//GEN-LAST:event_btnAtualizarProdutoActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
-
-        if (tblProdutos.getSelectedRow() != -1) 
-        {
-            if (txtCodProduto.getText().isEmpty()) 
-            {
+        if (tblProdutos.getSelectedRow() != -1) {
+            if (txtCodProduto.getText().isEmpty()) {
                 lblErroProduto.setText("Nenhuma linha selecionada");
-            } 
-            else 
-            {
-                int confirma = JOptionPane.showConfirmDialog(null, "Deseja deletar o produto  '" + txtNomeProduto.getText() + "'?", "AVISO", JOptionPane.YES_NO_OPTION);
-                
-                if (confirma == JOptionPane.YES_OPTION) 
-                {
-                    ProdutoControle produtocontrole = new ProdutoControle();
-                    produtocontrole.excluirProduto(txtCodProduto.getText());
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Deseja deletar o produto  '" + txtNomeProduto.getText() + "'?", "AVISO", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    new ProdutoControle().excluirProduto(txtCodProduto.getText());
                     this.listarProdutos();
                     this.limparProdutos();
                 }
             }
-        }
-        else 
-        {
+        } else {
             lblErroProduto.setText("Nenhuma linha selecionada");
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
@@ -688,29 +641,23 @@ public class Principal extends javax.swing.JFrame
     }//GEN-LAST:event_tblProdutosServiçoMouseClicked
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-
         int linha = tblProdutos.getSelectedRow();
         boolean verifica = false;
 
-        if (linha != -1)
-        {
-            for (ProdutoServiço produtoserviço : produtosserviço) 
-            {
-                if (tblProdutos.getValueAt(linha, 1).equals(produtoserviço.getNomeProduto())) 
-                {
+        if (linha != -1) {
+            for (ProdutoServiço produtoserviço : produtosserviço) {
+                if (tblProdutos.getValueAt(linha, 1).equals(produtoserviço.getNomeProduto())) {
                     verifica = true;
                 }
             }
 
-            if (verifica == true) 
-            {
+            if (verifica == true) {
                 lblErroServiço.setText("Produto já adicionado!");
-            } 
-            else
-            {
+            } else {
                 ProdutoServiço produtoserviço = new ProdutoServiço(1, tblProdutos.getValueAt(linha, 1).toString(),
                         Integer.parseInt(tblProdutos.getValueAt(linha, 3).toString()),
-                        Float.parseFloat(tblProdutos.getValueAt(linha, 2).toString()), tblProdutos.getValueAt(linha, 4).toString(), null);
+                        Float.parseFloat(tblProdutos.getValueAt(linha, 2).toString()),
+                        tblProdutos.getValueAt(linha, 4).toString(), null);
 
                 produtoserviço.setCodProduto(Integer.parseInt(tblProdutos.getValueAt(linha, 0).toString()));
 
@@ -718,87 +665,64 @@ public class Principal extends javax.swing.JFrame
                 this.listarProdutosServiço();
                 this.atualizarDados();
             }
-        }
-        else 
-        {
+        } else {
             lblErroServiço.setText("Selecione um produto em 'Lista de produtos'");
         }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void itmCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCadastrarClienteActionPerformed
-
-        CadastrarCliente cadastrarcliente = new CadastrarCliente();
-        cadastrarcliente.setVisible(true);
+        new CadastrarCliente().setVisible(true);
     }//GEN-LAST:event_itmCadastrarClienteActionPerformed
+
     //Salva o serviço ao clicar em salvar
     private void btnSalvarServiçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarServiçoActionPerformed
-
         this.atualizarDados();
-        boolean ok;
 
-        try 
-        {
-            if (txtCodServiço.getText().isEmpty())
-            {
+        try {
+            if (txtCodServiço.getText().isEmpty()) {
                 lblErroServiço.setText(null);
                 ServiçoControle serviçocontrole = new ServiçoControle();
 
                 Cliente cliente = serviçocontrole.verificaCliente(txtNomeCliente.getText(), txtFoneCliente.getText(), txtCpfCliente.getText());
 
-                if (cliente == null) 
-                {
+                if (cliente == null) {
                     lblErroServiço.setText("Preencha todos os campos de cliente");
-                } 
-                else 
-                {
+                } else {
                     lblErroServiço.setText(null);
 
-                    ok = serviçocontrole.salvar(cliente, txtDataServiço.getText(), produtosserviço, txtaDescriçaoServiço.getText(), txtValorServiço.getText(), txtValorTotal.getText());
-
-                    if (ok == true) 
-                    {
+                    if (serviçocontrole.salvar(cliente, txtDataServiço.getText(), produtosserviço, txtaDescriçaoServiço.getText(), txtValorServiço.getText(), txtValorTotal.getText()) == true) {
                         this.limparServiço();
                         this.listarServiços();
                         this.listarProdutos();
-                    } 
-                    else 
-                    {
+                    } else {
                         lblErroServiço.setText("Verifique os campos de data e valor do serviço");
                     }
                 }
-            } 
-            else 
-            {
+            } else {
                 lblErroServiço.setText("Serviço já existente!");
             }
-        } 
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar o serviço " + e, "ERRO", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
     }//GEN-LAST:event_btnSalvarServiçoActionPerformed
+
     //Quando é clicado no painel de serviços os dados são atualizados nas textfields
     private void pnlServiçosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlServiçosMouseClicked
-
         this.atualizarDados();
     }//GEN-LAST:event_pnlServiçosMouseClicked
 
     private void txtCpfClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfClienteActionPerformed
 
     }//GEN-LAST:event_txtCpfClienteActionPerformed
+
     //Quando é clicado em uma linha da tabela serviços, os daos são passados para as textfields
     private void tblAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAgendaMouseClicked
-
-        if (tblAgenda.getSelectedRow() != -1) 
-        {
+        if (tblAgenda.getSelectedRow() != -1) {
             this.limparServiço();
-            ServiçoControle serviçocontrole = new ServiçoControle();
 
-            for (Serviço serviço : serviçocontrole.recuperar()) 
-            {
-                if (Integer.parseInt(tblAgenda.getValueAt(tblAgenda.getSelectedRow(), 0).toString()) == serviço.getCodServiço()) 
-                {
+            for (Serviço serviço : new ServiçoControle().recuperar()) {
+                if (Integer.parseInt(tblAgenda.getValueAt(tblAgenda.getSelectedRow(), 0).toString()) == serviço.getCodServiço()) {
                     txtNomeCliente.setText(serviço.getCliente().getNomeCliente());
                     txtFoneCliente.setText(serviço.getCliente().getFoneCliente());
                     txtCpfCliente.setText(serviço.getCliente().getCpfCliente());
@@ -817,43 +741,29 @@ public class Principal extends javax.swing.JFrame
     }//GEN-LAST:event_tblAgendaMouseClicked
 
     private void btnAtualizarServiçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarServiçoActionPerformed
-
-        if(tblAgenda.getSelectedRow() != -1)
-        {
-            if (txtCodServiço.getText().isEmpty())
-            {
+        if (tblAgenda.getSelectedRow() != -1) {
+            if (txtCodServiço.getText().isEmpty()) {
                 lblErroServiço.setText("Nenhuma linha selecionada!");
-            }
-            else
-            {
-                if(txtDataServiço.getText().isEmpty() || txtValorServiço.getText().isEmpty())
-                {
+            } else {
+                if (txtDataServiço.getText().isEmpty() || txtValorServiço.getText().isEmpty()) {
                     lblErroServiço.setText("Verifique os campos de data e valor do serviço");
-                }
-                else
-                {
+                } else {
                     lblErroServiço.setText(null);
                     ServiçoControle serviçocontrole = new ServiçoControle();
                     Cliente cliente;
                     int codProdutos;
-                
-                    for (Serviço serviço : serviçocontrole.recuperar()) 
-                    {
-                        if (Integer.parseInt(txtCodServiço.getText()) == serviço.getCodServiço())
-                        {
+
+                    for (Serviço serviço : serviçocontrole.recuperar()) {
+                        if (Integer.parseInt(txtCodServiço.getText()) == serviço.getCodServiço()) {
                             cliente = serviço.getCliente();
                             codProdutos = serviço.getProdutosserviço().get(0).getCodProduto();
-                        
-                            if (codProdutos != 0)
-                            {
+
+                            if (codProdutos != 0) {
                                 ProdutoControle produtocontrole = new ProdutoControle();
-                                
-                                for (ProdutoServiço produtoserviço : serviço.getProdutosserviço()) 
-                                {
-                                    for (Produto produto : produtocontrole.listarProdutos())
-                                    {
-                                        if (produtoserviço.getNomeProduto().equals(produto.getNomeProduto()))
-                                        {
+
+                                for (ProdutoServiço produtoserviço : serviço.getProdutosserviço()) {
+                                    for (Produto produto : produtocontrole.listarProdutos()) {
+                                        if (produtoserviço.getNomeProduto().equals(produto.getNomeProduto())) {
                                             produto.setQtdeProduto(produto.getQtdeProduto() + produtoserviço.getQtde());
                                             produto.atualizar(produto);
                                             break;
@@ -862,57 +772,40 @@ public class Principal extends javax.swing.JFrame
                                 }
                                 ProdutoServiço produtoserviço = new ProdutoServiço();
                                 produtoserviço.deletarProdutoServiço(codProdutos);
-                                
+
                                 serviçocontrole.atualizaServiços(cliente, txtDataServiço.getText(), produtosserviço, codProdutos, txtaDescriçaoServiço.getText(), txtValorServiço.getText(), txtValorTotal.getText());
-                            }
-                            else
-                            {
-                                
+                            } else {
+
                             }
                             break;
                         }
                     }
-                
-                   
-
                     this.limparServiço();
                     this.listarServiços();
                     this.listarProdutos();
-                } 
+                }
             }
         }
     }//GEN-LAST:event_btnAtualizarServiçoActionPerformed
+
     //Deleta um serviço do banco de dados
     private void btnDeletarServiçoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarServiçoActionPerformed
-
-        if (tblAgenda.getSelectedRow() != -1)
-        {
-            if (txtCodServiço.getText().isEmpty())
-            {
+        if (tblAgenda.getSelectedRow() != -1) {
+            if (txtCodServiço.getText().isEmpty()) {
                 lblErroServiço.setText("Nenhuma linha selecionada!");
-            }
-            else
-            {
+            } else {
                 lblErroServiço.setText(null);
-                int confirma = JOptionPane.showConfirmDialog(null, "Deseja deletar o serviço  '" + txtCodServiço.getText() + "'?", "AVISO", JOptionPane.YES_NO_OPTION);
 
-                if (confirma == JOptionPane.YES_OPTION) 
-                {
+                if (JOptionPane.showConfirmDialog(null, "Deseja deletar o serviço  '" + txtCodServiço.getText()
+                        + "'?", "AVISO", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                     ServiçoControle serviçocontrole = new ServiçoControle();
-                    ProdutoControle produtocontrole = new ProdutoControle();
 
-                    if (produtosserviço.isEmpty()) 
-                    {
+                    if (produtosserviço.isEmpty()) {
                         serviçocontrole.deletarServiço(Integer.parseInt(txtCodServiço.getText()), 0);
-                    } 
-                    else 
-                    {
-                        for (ProdutoServiço produtoserviço : produtosserviço) 
-                        {
-                            for (Produto produto : produtocontrole.listarProdutos())
-                            {
-                                if (produtoserviço.getNomeProduto().equals(produto.getNomeProduto()))
-                                {
+                    } else {
+                        for (ProdutoServiço produtoserviço : produtosserviço) {
+                            for (Produto produto : new ProdutoControle().listarProdutos()) {
+                                if (produtoserviço.getNomeProduto().equals(produto.getNomeProduto())) {
                                     produto.setQtdeProduto(produto.getQtdeProduto() + produtoserviço.getQtde());
                                     produto.atualizar(produto);
                                     break;
@@ -927,25 +820,18 @@ public class Principal extends javax.swing.JFrame
                     this.listarProdutos();
                 }
             }
-        }
-        else 
-        {
+        } else {
             lblErroServiço.setText("Nenhuma linha selecionada!");
         }
     }//GEN-LAST:event_btnDeletarServiçoActionPerformed
-    //Lista os porodutos na lista de produtos do estoque
-    public void listarProdutos() 
-    {
-        ProdutoControle produtocontrole = new ProdutoControle();
 
+    //Lista os porodutos na lista de produtos do estoque
+    public void listarProdutos() {
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
         modelo.setRowCount(0);
 
-        for (Produto produto : produtocontrole.listarProdutos()) 
-        {
-            if (produto.getQtdeProduto() < 1) 
-                
-            {
+        for (Produto produto : new ProdutoControle().listarProdutos()) {
+            if (produto.getQtdeProduto() < 1) {
                 //deixar linha vermelha
             }
             modelo.addRow(new Object[]{produto.getCodProduto(), produto.getNomeProduto(), produto.getValorProduto(), produto.getQtdeProduto(), produto.getDescriçaoProduto()});
@@ -953,39 +839,32 @@ public class Principal extends javax.swing.JFrame
     }
 
     //Lista os pordutos do serviço na tabela de produtos do serviço
-    private void listarProdutosServiço() 
-    {
+    private void listarProdutosServiço() {
         DefaultTableModel modelo = (DefaultTableModel) tblProdutosServiço.getModel();
         modelo.setRowCount(0);
 
-        for (ProdutoServiço produtoServiço : produtosserviço) 
-        {
+        for (ProdutoServiço produtoServiço : produtosserviço) {
             modelo.addRow(new Object[]{produtoServiço.getNomeProduto(), produtoServiço.getQtde(), produtoServiço.getValorProduto()});
         }
     }
 
     //Lista os serviços cadastrados
-    public void listarServiços() 
-    {
-        ServiçoControle serviçocontrole = new ServiçoControle();
+    public void listarServiços() {
         DefaultTableModel modelo = (DefaultTableModel) tblAgenda.getModel();
         modelo.setRowCount(0);
 
-        for (Serviço serviço : serviçocontrole.recuperar()) 
-        {
+        for (Serviço serviço : new ServiçoControle().recuperar()) {
             String produtos = "";
-            
-            for (ProdutoServiço produtoserviço : serviço.getProdutosserviço()) 
-            {
-                produtos = produtos + produtoserviço.getNomeProduto() + ", ";
+
+            for (ProdutoServiço produtoserviço : serviço.getProdutosserviço()) {
+                produtos = (serviço.getProdutosserviço().size() == 1) ? (produtos + produtoserviço.getNomeProduto()) : (produtos + produtoserviço.getNomeProduto() + ", ");
             }
             modelo.addRow(new Object[]{serviço.getCodServiço(), serviço.getCliente().getNomeCliente(), serviço.getData(), produtos, serviço.getDescriçao(), serviço.getValorServiço(), serviço.getValorTotal()});
         }
     }
 
     //Limpa as textfields de serviço
-    private void limparServiço() 
-    {
+    private void limparServiço() {
         txtNomeCliente.setText(null);
         txtFoneCliente.setText(null);
         txtDataServiço.setText(null);
@@ -1000,8 +879,7 @@ public class Principal extends javax.swing.JFrame
     }
 
     //limpa as textfields de produtos
-    private void limparProdutos() 
-    {
+    private void limparProdutos() {
         txtNomeProduto.setText(null);
         txtQtdeProduto.setText(null);
         txtValorProduto.setText(null);
@@ -1010,23 +888,18 @@ public class Principal extends javax.swing.JFrame
     }
 
     //Atualiza dados na tabela de produtos do serviço
-    private void atualizarDados() 
-    {
+    private void atualizarDados() {
         int i = 0;
 
-        for (ProdutoServiço produtoServiço : produtosserviço) 
-        {
-            if (produtoServiço.getQtde() == 1) 
-            {
+        for (ProdutoServiço produtoServiço : produtosserviço) {
+            if (produtoServiço.getQtde() == 1) {
                 float novoValor = Integer.parseInt(tblProdutosServiço.getValueAt(i, 1).toString()) * produtoServiço.getValorProduto();
 
                 produtoServiço.setValorProduto(novoValor);
                 produtoServiço.setQtde(Integer.parseInt(tblProdutosServiço.getValueAt(i, 1).toString()));
 
                 produtosserviço.set(i, produtoServiço);
-            } 
-            else 
-            {
+            } else {
                 float valorUnitario = produtoServiço.getValorProduto() / produtoServiço.getQtde();
                 float novoValor = Integer.parseInt(tblProdutosServiço.getValueAt(i, 1).toString()) * valorUnitario;
 
@@ -1042,38 +915,23 @@ public class Principal extends javax.swing.JFrame
     }
 
     //Atualiza a textfield valor total
-    private void atualizarValorTotal() 
-    {
+    private void atualizarValorTotal() {
         float valorTotalProdutos = 0;
         float valorTotal;
         float valorServiço;
 
-        for (ProdutoServiço produtoserviço : produtosserviço) 
-        {
+        for (ProdutoServiço produtoserviço : produtosserviço) {
             valorTotalProdutos = valorTotalProdutos + produtoserviço.getValorProduto();
         }
 
-        if (txtValorServiço.getText().isEmpty()) 
-        {
-            valorServiço = 0;
-        }
-        else 
-        {
-            valorServiço = Float.parseFloat(txtValorServiço.getText());
-        }
+        valorServiço = (txtValorServiço.getText().isEmpty()) ? 0 : Float.parseFloat(txtValorServiço.getText());
 
         valorTotal = valorTotalProdutos + valorServiço;
 
         txtValorTotal.setText(Float.toString(valorTotal));
     }
 
-    public static void main(String args[]) 
-    {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -1084,11 +942,7 @@ public class Principal extends javax.swing.JFrame
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             Principal principal = new Principal();
             principal.setExtendedState(MAXIMIZED_BOTH);

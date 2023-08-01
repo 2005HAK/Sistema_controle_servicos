@@ -440,7 +440,7 @@
                               <Component id="txtCodProduto" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="splDescriçaoProduto" alignment="0" pref="288" max="32767" attributes="0"/>
+                      <Component id="splDescriçaoProduto" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="btnDeletar" min="-2" max="-2" attributes="0"/>
